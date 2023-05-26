@@ -1,0 +1,19 @@
+'This script is used to create a pop up menu in windows to allow you to select a file or multiple files
+
+Sub fileSelect()
+Dim objFSO As New FileSystemObject
+Dim xParent
+Dim PDFFldr As FileDialog
+Dim pdf_form_file As String
+Set PDFFldr = Application.FileDialog(msoFileDialogOpen)
+With PDFFldr
+    .Title = "Select PDF file to attach"
+    .Filters.Add "PDF Type Files", "*.pdf", 1
+    If .Show <> -1 Then GoTo NoSelection
+    pdf_form_file = .SelectedItems(1)
+End With
+xParent = objFSO.GetParentFolderName(pdf_form_file)
+splitPdf pdf_form_file
+MsgBox "Complete!", , "All Done"
+NoSelection:
+End Sub
